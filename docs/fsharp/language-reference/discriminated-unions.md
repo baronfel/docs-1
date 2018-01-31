@@ -99,6 +99,27 @@ let someMethodUsingShaderProgram shaderProgram =
     ..
 ```
 
+It is even possible to unwrap the value directly in the function parameter definition:
+
+```fsharp
+type ShaderProgram = | ShaderProgram of id:int
+
+let someMethodUsingShaderProgram (ShaderProgram(id)) =
+    // Use the unwrapped value
+    ..
+```
+
+Finally, you can give names to both the unwrapped and the wrapped version and use them in a function:
+
+```fsharp
+type ShaderProgram = | ShaderProgram of id:int
+
+let someMethodUsingShaderProgram (ShaderProgram(id) as shader) =
+    printfn "%d" id
+    someFunctionThatNeedsA shader
+    ..
+```
+
 ## Struct Discriminated Unions
 
 Starting with F# 4.1, you can also represent Discriminated Unions as structs.  This is done with the `[<Struct>]` attribute.
